@@ -8,7 +8,7 @@ const createPlayer = function (name, marker) {
 const player1 = createPlayer('Kobe', 'X');
 const player2 = createPlayer('Shaq','O'); 
 
-gameArr = ['tl','t','tr','cl','c','cr','bl','b','br'];
+gameArr = ['tl','t','tr', 'cl','c','cr', 'bl','b','br'];
 
   /*function playGame(player) {
  
@@ -43,26 +43,61 @@ gameArr = ['tl','t','tr','cl','c','cr','bl','b','br'];
       }
     }
     }   */
+    
+ 
+    /*
+    function playGame(player) {
+      let playerPick = prompt('enter your choice', ''); 
+   
+          for (let i = 0; i < gameArr.length; i++)  {
+     
+                  if (gameArr[i] == playerPick) {
+                     gameArr[i] = player.marker; 
+                     console.log(gameArr); 
+                      return gameArr; 
+                  }  
+   
+               }
+               console.log(gameArr); 
+           
+           
+       } 
+           
+       */
 
-
-function playGame(player) {
-   let playerPick = prompt('enter your choice', ''); 
-
-       for (let i = 0; i < gameArr.length; i++)  {
-      
-               if (gameArr[i] == playerPick) {
-                  gameArr[i] = player.marker; 
-                   console.log(gameArr); 
-               }  
-
-            }
-            console.log(gameArr); 
+       function playGame(playerOne, playerTwo) {
+    
+         let playerPick = prompt('enter your choice', '');
+         for (let i = 0; i < gameArr.length; i++) {
+            let findX = gameArr.filter((letter) => letter == player1.marker); 
+            let findO = gameArr.filter((letter) => letter == player2.marker); 
+             if (findO.length < findX.length && gameArr[i] == playerPick) {
+                gameArr[i] = playerTwo.marker; 
+                console.log(gameArr);
+                console.log(findO < findX);
+                console.log(findX);
+             }
+             else if (findO != findX && gameArr[i] == playerPick) {
+               gameArr[i] = playerOne.marker; 
+               console.log(gameArr); 
+               console.log(findO);
+               console.log(findX);
+             }
+         }
+       }
         
+       /*function alternate(playerOne, playerTwo) {   // once loops start it only evaluates playerOne and goes till array is finished without actually alternating and coming to first condition
+         if (findO < findX) {
+            playGame(playerTwo); 
+         } else if(findX != findO) {
+            playGame(playerOne); 
+         }
+       }  */ 
         
-    } 
+     
        // condition should be if all arr[i] equals 'X' loops finishes)
 
-
+      
   
 
     /* thiink now of how to change all positions with a marker. 
@@ -75,15 +110,15 @@ function playGame(player) {
      with two different markers */
 
 
-  function startGame(game, player) {
-     let valueCheck = (currentValue) => currentValue == 'X'; 
+  function startGame(game, playerOne, playerTwo) {
+     let valueCheck = (currentValue) => currentValue == playerOne.marker || currentValue == playerTwo.marker; 
     
       if (game.every(valueCheck) != true) {
-          playGame(player);
-          startGame(game, player); 
           
-     }
-     else if (game.every(valueCheck) == true) {
+          playGame(playerOne, playerTwo); 
+          startGame(game, playerOne, playerTwo); 
+          
+     } else if (game.every(valueCheck) == true) {
       console.log('game is finished');
       return
   } 
@@ -91,6 +126,6 @@ function playGame(player) {
 
 
 
-startGame(gameArr, player1); 
+startGame(gameArr, player1, player2); 
 
 
