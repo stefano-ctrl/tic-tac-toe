@@ -10,25 +10,61 @@ const player2 = createPlayer('Shaq','O');
 
 gameArr = ['tl','t','tr','cl','c','cr','bl','b','br'];
 
+  /*function playGame(player) {
+ 
 
-  function playGame(player) {
-    let playerPick = prompt('enter your chocice', '');
-    let updatedArray = []; 
+    let valueCheck = (currentValue) => currentValue == 'X'; 
+    if (gameArr.every(valueCheck) == true) {
+       console.log('game is finished');
+       return; 
+    }
+    
+    //let updatedArray = []; 
+    else if (gameArr.every(valueCheck) == false) {
+     
+
    
        for (let i=0; i < gameArr.length; i++) {
-        
+        let playerPick = prompt('enter your chocice', '');
         if(gameArr[i] === playerPick) {
-            gameArr[i] = player.marker; 
-            updatedArray.push(gameArr[i]); 
+             gameArr[i] = player.marker;
+        
+            //gameArr[i] = player.marker; 
+            //updatedArray.push(gameArr[i]); 
             
           }
         else if (gameArr[i] !== playerPick) {
-            updatedArray.push(gameArr[i]); 
+     
+          playGame(player1); 
+          console.log(gameArr); 
+            //updatedArray.push(gameArr[i]); 
         }
         
+      }
+    }
+    }   */
 
+
+function playGame(player) {
+   let playerPick = prompt('enter your choice', ''); 
+
+       for (let i = 0; i < gameArr.length; i++)  {
+      
+               if (gameArr[i] == playerPick) {
+                  gameArr[i] = player.marker; 
+                   console.log(gameArr); 
+               }  
+
+            }
+            console.log(gameArr); 
+        
+        
     } 
-    console.log(updatedArray); 
+       // condition should be if all arr[i] equals 'X' loops finishes)
+
+
+  
+
     /* thiink now of how to change all positions with a marker. 
     think recursive how can you make this function continue going until all
      spots have been taken. One way could be a second loop? best think would
@@ -38,10 +74,23 @@ gameArr = ['tl','t','tr','cl','c','cr','bl','b','br'];
      After you did that you can start thinking of how to alternate plays 
      with two different markers */
 
-  
+
+  function startGame(game, player) {
+     let valueCheck = (currentValue) => currentValue == 'X'; 
+    
+      if (game.every(valueCheck) != true) {
+          playGame(player);
+          startGame(game, player); 
+          
+     }
+     else if (game.every(valueCheck) == true) {
+      console.log('game is finished');
+      return
+  } 
   }
 
 
- playGame(player1); 
+
+startGame(gameArr, player1); 
 
 
